@@ -1,0 +1,14 @@
+kerjakan soal ini denga teliti dan benar sesuai dengan instruksi soalnya, gunakan bahasa c ikuti semua arahan dan baca data nya dengan benar gunakan array dan cari tau permasalahnnya kenapa urutan nilainya kayak gitu dan buat contoh input outputnya # Soal Pemrograman - Penjumlahan Nilai Siswa
+## Deskripsi Masalah
+Data nilai siswa disimpan dalam sebuah rak fisik yang tersusun rapat. Perhatikan pola penyimpanan pada gambar di bawah ini untuk memahami bagaimana kelompok siswa dipisahkan. 
+Input:
+1.  Jumlah total data (N).
+2.  Deret nilai (n1, n2, …, n).
+3.  Kode kelompok siswa
+**Tugas**
+Buatlah program yang mampu menentukan total nilai hanya untuk kelompok yang diminta.
+<p align="center">
+  <img src="image/pola.jpeg" width="300">
+</p>
+NB:
+Kamu dapat menekan Ctrl + Shift + V untuk melihat soal dengan gambar atau kamu dapat menekan ctrl + Klik pada link gambar.

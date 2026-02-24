@@ -1,0 +1,146 @@
+kerjakan dengan detail benar teliti buat semenarik mungkin gunakan bahasa c untuk menyelesaikan masalah ini Buatlah sebuah sistem yang dapat mendukung operasional sehari-hari di Laundry Del.
+
+coba buat si user menginputkan nama,asrama mana, tanggal, barang barang nya, berapa biji, lalu kau hanya hitung berapa total yg di laundry
+
+gabungkan agar terlihat sempurna #include <stdio.h>
+#include <string.h>
+
+typedef struct {
+    int id;
+    char namaPelanggan[50];
+    float berat;
+    int jenisLayanan; // 1: Cuci Kering, 2: Cuci Setrika, 3: Express
+    long totalHarga;
+    char status[20];
+} Pesanan;
+
+void tampilkanMenu() {
+    printf("=== Sistem Operasional Laundry Del ===\n");
+    printf("1. Tambah Pesanan Baru\n");
+    printf("2. Lihat Semua Pesanan\n");
+    printf("3. Update Status Pesanan\n");
+    printf("4. Keluar\n");
+    printf("Pilih opsi: ");
+}
+
+long hitungHarga(int layanan, float berat) {
+    long hargaPerKg;
+    if (layanan == 1) hargaPerKg = 5000;      // Cuci Kering
+    else if (layanan == 2) hargaPerKg = 7000; // Cuci Setrika
+    else hargaPerKg = 10000;                  // Express
+    
+    return (long)(hargaPerKg * berat);
+}
+
+int main() {
+    Pesanan daftarPesanan[100];
+    int jumlahPesanan = 0;
+    int pilihan;
+
+    do {
+        tampilkanMenu();
+        scanf("%d", &pilihan);
+        getchar(); // Membersihkan buffer
+
+        if (pilihan == 1) {
+            daftarPesanan[jumlahPesanan].id = jumlahPesanan + 1;
+            printf("\nNama Pelanggan: ");
+            fgets(daftarPesanan[jumlahPesanan].namaPelanggan, 50, stdin);
+            daftarPesanan[jumlahPesanan].namaPelanggan[strcspn(daftarPesanan[jumlahPesanan].namaPelanggan, "\n")] = 0;
+
+            printf("Berat Cucian (kg): ");
+            scanf("%f", &daftarPesanan[jumlahPesanan].berat);
+
+            printf("Pilih Layanan (1: Cuci Kering, 2: Cuci Setrika, 3: Express): ");
+            scanf("%d", &daftarPesanan[jumlahPesanan].jenisLayanan);
+
+            daftarPesanan[jumlahPesanan].totalHarga = hitungHarga(daftarPesanan[jumlahPesanan].jenisLayanan, daftarPesanan[jumlahPesanan].berat);
+            strcpy(daftarPesanan[jumlahPesanan].status, "Diproses");
+
+            printf("Pesanan berhasil ditambahkan! Total: Rp %ld\n\n", daftarPesanan[jumlahPesanan].totalHarga);
+            jumlahPesanan++;
+
+        } else if (pilihan == 2) {
+            printf("\n%-4s | %-20s | %-8s | %-12s | %-10s\n", "ID", "Pelanggan", "Berat", "Harga", "Status");
+            printf("------------------------------------------------------------------\n");
+            for (int i = 0; i < jumlahPesanan; i++) {
+                printf("%-4d | %-20s | %-6.2f kg | Rp %-9ld | %-10s\n", 
+                        daftarPesanan[i].id, 
+                        daftarPesanan[i].namaPelanggan, 
+                        daftarPesanan[i].berat, 
+                        daftarPesanan[i].totalHarga, 
+                        daftarPesanan[i].status);
+            }
+            printf("\n");
+
+        } else if (pilihan == 3) {
+            int idCari;
+            printf("\nMasukkan ID Pesanan yang ingin diupdate: ");
+            scanf("%d", &idCari);
+            if (idCari > 0 && idCari <= jumlahPesanan) {
+                strcpy(daftarPesanan[idCari-1].status, "Selesai");
+                printf("Status pesanan ID %d berhasil diperbarui menjadi Selesai.\n\n", idCari);
+            } else {
+                printf("ID tidak ditemukan.\n\n");
+            }
+        }
+
+    } while (pilihan != 4);
+
+    printf("Terima kasih telah menggunakan sistem Laundry Del.\n");
+    return 0;
+}#include <stdio.h>
+#include <string.h>
+
+#define HARGA_PER_BIJI 500 // Asumsi biaya per satuan barang (misal Rp 500)
+
+typedef struct {
+    char nama[50];
+    char asrama[30];
+    char tanggal[20];
+    char listBarang[100];
+    int jumlahBiji;
+    long totalHarga;
+} DataLaundry;
+
+int main() {
+    DataLaundry mhs;
+
+    printf("=== Formulir Operasional Laundry Del ===\n");
+
+    printf("Nama Mahasiswa    : ");
+    fgets(mhs.nama, sizeof(mhs.nama), stdin);
+    mhs.nama[strcspn(mhs.nama, "\n")] = 0;
+
+    printf("Asrama            : ");
+    fgets(mhs.asrama, sizeof(mhs.asrama), stdin);
+    mhs.asrama[strcspn(mhs.asrama, "\n")] = 0;
+
+    printf("Tanggal (DD/MM/YY): ");
+    fgets(mhs.tanggal, sizeof(mhs.tanggal), stdin);
+    mhs.tanggal[strcspn(mhs.tanggal, "\n")] = 0;
+
+    printf("Daftar Barang     : ");
+    fgets(mhs.listBarang, sizeof(mhs.listBarang), stdin);
+    mhs.listBarang[strcspn(mhs.listBarang, "\n")] = 0;
+
+    printf("Jumlah Barang (biji): ");
+    scanf("%d", &mhs.jumlahBiji);
+
+    // Perhitungan total berdasarkan jumlah biji
+    mhs.totalHarga = (long)mhs.jumlahBiji * HARGA_PER_BIJI;
+
+    printf("\n--- Ringkasan Pesanan Laundry ---\n");
+    printf("Nama        : %s\n", mhs.nama);
+    printf("Asrama      : %s\n", mhs.asrama);
+    printf("Tanggal     : %s\n", mhs.tanggal);
+    printf("Isi Paket   : %s\n", mhs.listBarang);
+    printf("Total Item  : %d biji\n", mhs.jumlahBiji);
+    printf("---------------------------------\n");
+    printf("TOTAL TAGIHAN: Rp %ld\n", mhs.totalHarga);
+    printf("---------------------------------\n");
+
+    return 0;
+}
+
+buat contoh case nya 
