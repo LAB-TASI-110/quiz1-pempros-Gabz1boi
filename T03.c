@@ -31,7 +31,7 @@ int main() {
     do {
         tampilkanMenu();
         scanf("%d", &pilihan);
-        getchar(); // Membersihkan sisa karakter enter di buffer
+        getchar(); 
 
         if (pilihan == 1) {
             daftarPesanan[jumlahPesanan].id = jumlahPesanan + 1;
@@ -54,7 +54,7 @@ int main() {
 
             printf("Jumlah Barang (biji): ");
             scanf("%d", &daftarPesanan[jumlahPesanan].jumlahBiji);
-            getchar(); // Membersihkan buffer lagi setelah input angka
+            getchar(); 
 
             daftarPesanan[jumlahPesanan].totalHarga = (long)daftarPesanan[jumlahPesanan].jumlahBiji * HARGA_PER_BIJI;
             strcpy(daftarPesanan[jumlahPesanan].status, "Diproses");
